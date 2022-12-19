@@ -194,7 +194,7 @@ bool DateTime::TimeStamp::is_valid(bool raise_exceptions)
 		this->hour = validated_time[0];
 		this->minute = validated_time[1];
 		this->second = validated_time[2];
-		this->valid = false;
+		this->valid = true;
 	}
 	catch (std::exception& e) {
 		this->valid = false;

@@ -17,8 +17,7 @@ public:
 	Train(std::string& target, std::string& train_number, DateTime::DateTimeStamp& dt_departure);
 	std::string getTarget();
 	DateTime::DateTimeStamp getDeparture();
-	/*void WriteTrainInfo(std::ostream& out_stream);
-	void ReadTrainInfo(std::istream& inp_stream);*/
+	void WriteTrainInfo(std::ostream& out_stream);
 
 };
 

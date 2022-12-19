@@ -5,6 +5,12 @@ TextWorker::TextWorker(std::string filepath): Validator()
 	this->inp = new std::ifstream(filepath.c_str());
 }
 
+void TextWorker::setInput(std::string filepath)
+{
+	this->inp = new std::ifstream(filepath.c_str());
+	this->is_valid(true);
+}
+
 TextWorker::TextWorker(const TextWorker& on_copy)
 {
 	this->valid = on_copy.valid;

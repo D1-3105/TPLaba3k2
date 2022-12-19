@@ -5,35 +5,86 @@ void TrainStation::operator+=(Train tr)
 	trains.push_back(tr);
 }
 
-void TrainStation::operator--()
+Train TrainStation::pop()
 {
-	trains.pop();
+	if (trains.getLength() > 0) {
+		return trains.pop();
+	}
+	else {
+		throw std::exception("Station is empty!");
+	}
+	
 }
 
 Train* TrainStation::sort_by_target()
 {
 	Train* train_arr = trains.to_array();
-	auto comparator = [](Train& tr1, Train& tr2) {
-		return tr1.getTarget() < tr2.getTarget();
-	};
-	std::sort(train_arr, &train_arr[trains.getLength()], comparator);
+	for (int i = 0; i < trains.getLength() - 1; i++)
+		for (int j = i + 1; j < trains.getLength(); j++) {
+			if (strcmp(train_arr[i].getTarget().c_str(), train_arr[j].getTarget().c_str()) > 0)
+			{
+				Train cur = train_arr[i];
+				train_arr[i] = train_arr[j];
+				train_arr[j] = cur;
+			}
+		}
 	return train_arr;
 }
 
 List<Train> TrainStation::after(DateTime::DateTimeStamp dt)
 {
 	List<Train> after_list;
-	for (size_t cursor = 0; cursor < trains.getLength(); cursor++) {
-		DateTime::DateTimeStamp cur_dt = trains[cursor].getDeparture();
-		DateTime::TimeStamp ts = dt.getTime();
-		bool only_date_check = (dt.only_date() or dt.full_datetime()) and (cur_dt.only_date() or cur_dt.full_datetime()) and cur_dt.after(dt);
-		bool only_time_check = (dt.only_time() or cur_dt.full_datetime()) and (cur_dt.only_date() or cur_dt.full_datetime()) and cur_dt.after(dt);
-		bool full_datetime_check = cur_dt.after(dt);
-		if (
-			only_date_check or only_time_check or full_datetime_check
-		) {
-			after_list.push_back(trains[cursor]);
+	if (dt.only_date()) {
+		DateTime::DateStamp ds = dt.getDate();
+		for (size_t cursor = 0; cursor < trains.getLength(); cursor++) {
+			DateTime::DateTimeStamp cur_dt = trains[cursor].getDeparture();
+
+			bool check = (cur_dt.only_date() or cur_dt.full_datetime()) and cur_dt.getDate().after(ds);
+			if (
+				check
+				) {
+				after_list.push_back(trains[cursor]);
+			}
+		}
+	}
+	else if (dt.only_time()) {
+		DateTime::TimeStamp ds = dt.getTime();
+		for (size_t cursor = 0; cursor < trains.getLength(); cursor++) {
+			DateTime::DateTimeStamp cur_dt = trains[cursor].getDeparture();
+			bool check = (cur_dt.only_time() or cur_dt.full_datetime()) and cur_dt.getTime().after(ds);
+			if (
+				check
+				) {
+				after_list.push_back(trains[cursor]);
+			}
+		}
+	}
+	else if (dt.full_datetime()) {
+		for (size_t cursor = 0; cursor < trains.getLength(); cursor++) {
+			DateTime::DateTimeStamp cur_dt = trains[cursor].getDeparture();
+			bool check = (cur_dt.full_datetime()) and cur_dt.after(dt);
+			if (
+				check
+				) {
+				after_list.push_back(trains[cursor]);
+			}
+		}
+	}
+	else {
+		for (size_t cursor = 0; cursor < trains.getLength(); cursor++) {
+			DateTime::DateTimeStamp cur_dt = trains[cursor].getDeparture();
+			bool check = cur_dt.after(dt);
+			if (
+				check
+				) {
+				after_list.push_back(trains[cursor]);
+			}
 		}
 	}
 	return after_list;
+}
+
+List<Train> TrainStation::getList()
+{
+	return trains;
 }

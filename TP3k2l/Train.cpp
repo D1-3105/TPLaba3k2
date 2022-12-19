@@ -14,7 +14,7 @@ Train::Train(std::string& target, std::string& train_number, DateTime::DateTimeS
 	if (dt_departure.valid)
 		this->dt_departure = dt_departure;
 	else
-		throw "Invalid departure";
+		throw std::exception("Invalid departure");
 }
 
 std::string Train::getTarget()
@@ -27,17 +27,17 @@ DateTime::DateTimeStamp Train::getDeparture()
 	return dt_departure;
 }
 
-//void Train::WriteTrainInfo(std::ostream& out_stream)
-//{
-//	if (std::addressof(out_stream) == std::addressof(std::cout)) {
-//		out_stream << "\tTARGET:\t" << target << std::endl;
-//		out_stream << "\tNUMBER:\t" << train_number << std::endl;
-//		out_stream << "\tDEPARTURE:\t" << dt_departure.to_string() << std::endl;
-//	}
-//	else {
-//		out_stream << target << '\n' << train_number << '\n' << dt_departure.to_string() << '\n';
-//	}
-//}
+void Train::WriteTrainInfo(std::ostream& out_stream)
+{
+	if (std::addressof(out_stream) == std::addressof(std::cout)) {
+		out_stream << "\tTARGET:\t" << target << std::endl;
+		out_stream << "\tNUMBER:\t" << train_number << std::endl;
+		out_stream << "\tDEPARTURE:\t" << dt_departure.to_string() << std::endl;
+	}
+	else {
+		out_stream << target << '\n' << train_number << '\n' << dt_departure.to_string() << '\n';
+	}
+}
 //
 //void Train::ReadTrainInfo(std::istream& inp_stream)
 //{

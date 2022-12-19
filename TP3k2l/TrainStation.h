@@ -9,9 +9,10 @@ private:
 public:
 	TrainStation() : trains() {};
 	void operator+=(Train tr);
-	void operator--();
+	Train pop();
 	Train* sort_by_target();
 	List<Train> after(DateTime::DateTimeStamp dt);
+	List<Train> getList();
 };
 
 #endif // !__TRAIN_STATION__

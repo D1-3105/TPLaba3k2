@@ -10,9 +10,12 @@ private:
 public:
 	TextWorker(std::string filepath);
 	TextWorker() : inp(){};
+	void setInput(std::string filepath);
 	TextWorker(const TextWorker& on_copy);
 	~TextWorker() {
-		inp->close();
+		if (inp!= 0 and inp->is_open()) {
+			inp->close();
+		}
 	}
 	bool is_valid(bool raise_exceptions=false) override;
 	int process();
