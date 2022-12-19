@@ -8,7 +8,13 @@ TextWorker::TextWorker(std::string filepath): Validator()
 void TextWorker::setInput(std::string filepath)
 {
 	this->inp = new std::ifstream(filepath.c_str());
-	this->is_valid(true);
+	try {
+		this->is_valid(true);
+	}
+	catch (std::exception& e) {
+		throw e;
+	}
+	
 }
 
 TextWorker::TextWorker(const TextWorker& on_copy)
@@ -22,7 +28,7 @@ bool TextWorker::is_valid(bool raise_exceptions)
 {
 	valid = this->inp->is_open();
 	if (not valid and raise_exceptions)
-		throw "Invalid file";
+		throw std::exception("Invalid file");
 	return valid;
 }
 

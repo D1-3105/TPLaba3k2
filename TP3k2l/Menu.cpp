@@ -151,6 +151,7 @@ void Menu::loop_menu()
 		std::cout << "\t3. Second task" << std::endl;
 		std::cout << "\t-1. Exit" << std::endl << "->";
 		std::cin >> choice;
+		system("cls");
 		this->make_choice(choice);
 	}
 }
