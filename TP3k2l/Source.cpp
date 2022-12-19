@@ -5,4 +5,5 @@ int main() {
 	Tests::TrainTester test_train;
 	Tests::ListTester test_list;
 	Tests::TrainStationTest test_station;
+	Tests::TextProcessorTest test_text_proc;
 }

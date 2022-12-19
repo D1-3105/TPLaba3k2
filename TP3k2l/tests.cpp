@@ -162,3 +162,20 @@ Tests::TrainStationTest::TrainStationTest()
 	this->_test_sort_ts();
 	this->_test_after_ts();
 }
+
+void Tests::TextProcessorTest::setUp()
+{
+	tw = new TextWorker("text_processing.txt");
+	tw->is_valid(true);
+}
+
+void Tests::TextProcessorTest::_test_text_process()
+{
+	this->tw->process();
+}
+
+Tests::TextProcessorTest::TextProcessorTest()
+{
+	this->setUp();
+	this->_test_text_process();
+}

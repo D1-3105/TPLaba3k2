@@ -3,6 +3,7 @@
 #include "List.h"
 #include "Train.h"
 #include "TrainStation.h"
+#include "TextWorker.h"
 #include <assert.h>
 
 namespace Tests {
@@ -43,6 +44,14 @@ namespace Tests {
 		void _test_sort_ts();
 		void _test_after_ts();
 		TrainStationTest();
+	};
+	class TextProcessorTest {
+	private:
+		TextWorker* tw;
+	public:
+		void setUp();
+		void _test_text_process();
+		TextProcessorTest();
 	};
 };
 
